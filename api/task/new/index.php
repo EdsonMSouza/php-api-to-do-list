@@ -26,13 +26,9 @@ try {
                 die();
             }
 
-            if (1 == 1) {
-                $teste = "a";
-            }
-
-            if (sizeof($args) != 2) {
+            if (sizeof($args) != 1) {
                 echo json_encode(
-                    ['message' => 'Invalid Arguments Number (Expected Two)']
+                    ['message' => 'Invalid Arguments Number (Expected One)']
                 );
                 die();
             }
