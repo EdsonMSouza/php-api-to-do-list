@@ -254,7 +254,6 @@ header = {
 url = 'http://URI/api/task/new/';
 
 payload = {
-    "user_id": "user_id",
     "name": "Task name"
 }
 
@@ -268,7 +267,7 @@ header = {
 
 ```json
 {
-    "message": "Taks Successfully Added"
+    "message": "Task Successfully Added"
 }
 ```
 
