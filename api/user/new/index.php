@@ -67,7 +67,7 @@ try {
             if ($newUser[0]) {
                 echo json_encode(
                     ['message' => 'User Successfully Added',
-                        'userid' => $newUser[1],
+                        'id' => $newUser[1],
                         'token' => $newUser[2]]
                 );
 
