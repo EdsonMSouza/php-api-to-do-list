@@ -78,12 +78,12 @@ DATABASE name;
 ```sql
 CREATE TABLE users
 (
-    id       INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name     VARCHAR(50) NOT NULL,
-    email    VARCHAR(50) NOT NULL,
-    username VARCHAR(32) NOT NULL,
-    password VARCHAR(32) NOT NULL,
-    token    VARCHAR(20) NOT NULL
+    id       INT(3)         NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name     VARCHAR(50)    NOT NULL,
+    email    VARCHAR(50)    NOT NULL,
+    username VARCHAR(32)    NOT NULL,
+    password VARCHAR(32)    NOT NULL,
+    token    VARCHAR(20)    NOT NULL
 );
 ```
 
