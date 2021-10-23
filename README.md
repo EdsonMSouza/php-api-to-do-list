@@ -14,7 +14,9 @@ mechanisms of access to the resources of an API.
 
 ```html
 PHP 7.4.3 (cli) (built: Jul  5 2021 15:13:35) ( NTS )
-Copyright (c) The PHP Group Zend Engine v3.4.0, Copyright (c) Zend Technologies with Zend OPcache v7.4.3, Copyright (c), by Zend Technologies
+Copyright (c) The PHP Group Zend Engine v3.4.0, 
+Copyright (c) Zend Technologies with Zend OPcache v7.4.3, 
+Copyright (c), by Zend Technologies
 ```
 
 ## How to use this content?
@@ -79,7 +81,7 @@ CREATE TABLE users
     id       INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name     VARCHAR(50) NOT NULL,
     email    VARCHAR(50) NOT NULL,
-    username VARCHAR(20) NOT NULL,
+    username VARCHAR(32) NOT NULL,
     password VARCHAR(32) NOT NULL,
     token    VARCHAR(20) NOT NULL
 );
@@ -88,11 +90,11 @@ CREATE TABLE users
 ```sql
 CREATE TABLE tasks
 (
-    id       INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    userId   INT(3) NOT NULL,
-    name     VARCHAR(50) NOT NULL,
-    date     date        NOT NULL,
-    realized INT(1) NOT NULL
+    id       INT(3)         NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userId   INT(3)         NOT NULL,
+    name     VARCHAR(50)    NOT NULL,
+    date     date           NOT NULL,
+    realized INT(1)         NOT NULL
 );
 ```
 
