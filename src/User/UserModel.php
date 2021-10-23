@@ -123,7 +123,7 @@ class UserModel
             $stmt->bindValue(':token', $token, \PDO::PARAM_STR);
             $stmt->execute();
 
-            $userId = self::$pdo->lastInsertId();
+            $userId = (int)self::$pdo->lastInsertId();
             self::$pdo->commit();
 
             return [true, $userId, $token];

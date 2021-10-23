@@ -121,7 +121,7 @@ header = {
 ```json
 {
     "message": "User Successfully Added",
-    "userid": "user_id",
+    "id": "user_id",
     "token": "TOKEN value"
 }
 ```
@@ -392,6 +392,38 @@ header = {
       "realized": 0
   }
 ]
+```
+
+###### Warnings
+
+```json
+{
+  "message": "Payload Precondition Failed"
+}
+```
+
+```json
+{
+  "message": "Invalid or Missing Token"
+}
+```
+
+```json
+{
+  "message": "Invalid Arguments Number (Expected One)"
+}
+```
+
+```json
+{
+  "message": "Bad Request (Invalid Syntax)"
+}
+```
+
+```json
+{
+  "message": "Token Refused"
+}
 ```
 
 | Resource |      URI      |  Method  |
