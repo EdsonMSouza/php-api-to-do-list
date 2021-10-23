@@ -1,7 +1,11 @@
 {
-    "autoload": {
-        "psr-4": {
-            "Api\\": "src/"
-        }
+  "autoload": {
+    "psr-4": {
+      "Api\\": "src/"
     }
+  },
+  "require": {
+    "ext-json": "*",
+    "ext-pdo": "*"
+  }
 }

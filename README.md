@@ -3,21 +3,26 @@
 <code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/php/php.png"></code>
 <code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mysql/mysql.png"></code>
 
-This API aims to present a brief to consume a API resources, mainly for students in the early years of Computer Science courses and the like. For this reason, it has few EndPoints (resources) to use, and can be expanded according to the need.
+This API aims to present a brief to consume an API resources, mainly for students in the early years of Computer Science
+courses and the like. For this reason, it has few EndPoints (resources) to use, and can be expanded according to the
+need.
 
-As it is an instructional project, **it is not recommended** that it be applied in a production environment, as safety routines and tests have not been implemented. These resources must be researched and implemented, following the current rules, in addition to good practices. Built in **PHP 7** (see below), it allows the beginner to understand the mechanisms of access to the resources of an API.
+As it is an instructional project, **it is not recommended** that it be applied in a production environment, as safety
+routines and tests have not been implemented. These resources must be researched and implemented, following the current
+rules, in addition to good practices. Built in **PHP 7** (see below), it allows the beginner to understand the
+mechanisms of access to the resources of an API.
 
 ```html
 PHP 7.4.3 (cli) (built: Jul  5 2021 15:13:35) ( NTS )
-Copyright (c) The PHP Group Zend Engine v3.4.0, Copyright (c) Zend Technologies
-    with Zend OPcache v7.4.3, Copyright (c), by Zend Technologies
+Copyright (c) The PHP Group Zend Engine v3.4.0, Copyright (c) Zend Technologies with Zend OPcache v7.4.3, Copyright (c), by Zend Technologies
 ```
- 
+
 ## How to use this content?
 
 This content has _free license for use_ (CC BY-SA 4.0).
 
-If you want collaborate in this repository with any improvements you have made. To do this, just make a Fork and send Pull Requests.
+If you want to collaborate in this repository with any improvements you have made. To do this, just make a Fork and send
+Pull Requests.
 
 ## Composer
 
@@ -25,14 +30,13 @@ Changes should be updated via <code>composer dump-autoload -o</code> on your loc
 
 ## TODO
 
-* ~~Fixed `token auth` in update mode~~
-* ~~Fixed system login~~
 * Implement Update `username` and `password`
 * Implement EndPoint ``user/delete``
 
 # Documentation
 
-This API provides functionality for creating and maintaining users to control a simple To-Do-List application. The following shows the API structure for **users** and **tasks** resources.
+This API provides functionality for creating and maintaining users to control a simple To-Do-List application. The
+following shows the API structure for **users** and **tasks** resources.
 
 ## API Structure
 
@@ -59,33 +63,36 @@ This API provides functionality for creating and maintaining users to control a 
 
 ## _Database_
 
-The development uses the MySQL 5, which can be changed at any time according to the need for use.
-The database should be configured in <code>Database\Database.php</code>
+The development uses the MySQL 5, which can be changed at any time according to the need for use. The database should be
+configured in <code>Database\Database.php</code>
 
 ### Scripts SQL
 
 ```sql
-CREATE DATABASE <name>;
+CREATE
+DATABASE name;
 ```
 
 ```sql
-CREATE TABLE users (
-    id          INT(3) 	    NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(50) NOT NULL,
-    email       VARCHAR(50) NOT NULL,
-    username    VARCHAR(20) NOT NULL,
-    password    VARCHAR(20) NOT NULL,
-    token       VARCHAR(20) NOT NULL
+CREATE TABLE users
+(
+    id       INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name     VARCHAR(50) NOT NULL,
+    email    VARCHAR(50) NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    password VARCHAR(32) NOT NULL,
+    token    VARCHAR(20) NOT NULL
 );
 ```
 
 ```sql
-CREATE TABLE tasks (
-    id          INT(3) 	    NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    userId      INT(3)      NOT NULL,    
-    name        VARCHAR(50) NOT NULL,
-    date        date        NOT NULL,
-    realized    INT(1)      NOT NULL
+CREATE TABLE tasks
+(
+    id       INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userId   INT(3) NOT NULL,
+    name     VARCHAR(50) NOT NULL,
+    date     date        NOT NULL,
+    realized INT(1) NOT NULL
 );
 ```
 
@@ -95,38 +102,50 @@ To use this API, a user must first be created with resource below.
 
 A TOKEN will be returned that should be used in all subsequent requests for both user and task data manipulation.
 
-# _Resources_ (User)
+## URI
+
+The `URI` variable must be filled with the address where the API will be made available.
+
+# _Resources_
+
+## User
+
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **NEW** | /api/**user**/**new**/ | **POST** |
+|  **NEW** | `http://URI/api/user/new/` | **POST** |
+
 ---
 
-```json
-url = 'http://URI/api/user/new/';
-
-payload = {
-    "name": "name",
-    "email": "email",
-    "username": "username",
-    "password": "password"
-}
-
-header = {
-    "content-type": "application/json"
-}
-```
-
-###### Success (User created)
+_**payload**_
 
 ```json
 {
-    "message": "User Successfully Added",
-    "id": "user_id",
-    "token": "TOKEN value"
+  "name": "name",
+  "email": "email",
+  "username": "username",
+  "password": "password"
 }
 ```
 
-###### Warnings
+_**header**_
+
+```json
+{
+  "content-type": "application/json"
+}
+```
+
+_**Success**_
+
+```json
+{
+  "message": "User Successfully Added",
+  "id": "user_id",
+  "token": "TOKEN value"
+}
+```
+
+_**Warnings**_
 
 ```json
 {
@@ -150,22 +169,26 @@ header = {
 
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **LOGIN** | /api/**user**/**login**/ | **POST** |
+|  **LOGIN** | `http://URI/api/user/login/` | **POST** |
+
+_**payload**_
 
 ```json
-url = 'http://URI/api/user/login/';
-
-payload = {
-    "username": "username",
-    "password": "password"
-}
-
-header = {
-    "content-type": "application/json"
+{
+  "username": "username",
+  "password": "password"
 }
 ```
 
-###### Success
+_**header**_
+
+```json
+{
+  "content-type": "application/json"
+}
+```
+
+_**Success**_
 
 ```json
 {
@@ -176,7 +199,7 @@ header = {
 }
 ```
 
-###### Warnings
+_**Warnings**_
 
 ```json
 {
@@ -194,35 +217,39 @@ header = {
 
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **UPDATE** | /api/**user**/**update**/ | **PUT** |
+|  **UPDATE** | `http://URI/api/user/update/` | **PUT** |
 
 Attention: `username` and `password` can not be changed in this version.
 
-```json
-url = 'http://URI/api/user/update/';
-
-payload = {
-    "name": "name",
-    "email": "email",
-    "username": "username",
-    "password": "password"
-}
-
-header = {
-    "content-type": "application/json",
-    "Authorization": "YOUR_TOKEN"
-}
-```
-
-###### Success
+_**payload**_
 
 ```json
 {
-    "message": "User Successfully Updated'
+  "name": "name",
+  "email": "email",
+  "username": "username",
+  "password": "password"
+}
+``` 
+
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
 }
 ```
 
-###### Warnings
+_**Success**_
+
+```json
+{
+  "message": "User Successfully Updated"
+}
+```
+
+_**Warnings**_
 
 ```json
 {
@@ -244,34 +271,40 @@ header = {
 
 ---
 
-# _Resources_ (Task)
+# Task
+
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **NEW** | /api/**task**/**new**/ | **POST** |
+|  **NEW** | `http://URI/api/task/new/` | **POST** |
+
 ---
 
-```json
-url = 'http://URI/api/task/new/';
-
-payload = {
-    "name": "Task name"
-}
-
-header = {
-    "content-type": "application/json",
-    "Authorization": "YOUR_TOKEN"
-}
-```
-
-###### Success (Task created)
+_**payload**_
 
 ```json
 {
-    "message": "Task Successfully Added"
+  "name": "Task name"
 }
 ```
 
-###### Warnings
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
+}
+```
+
+_**Success**_
+
+```json
+{
+  "message": "Task Successfully Added"
+}
+```
+
+_**Warnings**_
 
 ```json
 {
@@ -287,63 +320,71 @@ header = {
 
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **SEARCH** | /api/**task**/**search**/ | **POST** |
+|  **SEARCH** | `http://URI//api/task/search/` | **POST** |
+
 ---
 
-Payload is not necessary, as the control is performed by token.
+Payload is not necessary, as the control is performed by `token`.
 
-**Realized** field accept values: "0" (open) and "1" (realized)
+**Realized** field accept values: `0` (open) or `1` (realized)
+
+_**header**_
 
 ```json
-url = 'http://URI/api/task/search/';
-
-header = {
-    "content-type": "application/json",
-    "Authorization": "YOUR_TOKEN"
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
 }
 ```
 
-###### Success
+_**Success**_
+
 ```json
   [
-      {
-          "id": 1,
-          "userId": 1,
-          "name": "task name",
-          "date": "2021-08-16",
-          "realized": 0
-      }
-  ]
+  {
+    "id": 1,
+    "userId": 1,
+    "name": "task name",
+    "date": "2021-08-16",
+    "realized": 0
+  }
+]
 ```
 
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **UPDATE** | /api/**task**/**update**/ | **PUT** |
+|  **UPDATE** | `http://URI/api/task/update/` | **PUT** |
+
 ---
 
-```json
-url = 'http://URI/api/task/update/';
+_**payload**_
 
-payload = {
-    "id": "value",
-    "name": "Task name",
-    "realized": "value"
-}
-
-header = {
-    "content-type": "application/json",
-    "Authorization": "YOUR_TOKEN"
-}
-```
-
-###### Success
 ```json
 {
-    "message": "Task Successfully Updated"
+  "id": "value",
+  "name": "Task name",
+  "realized": "value"
 }
 ```
 
-###### Warnings
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
+}
+```
+
+_**Success**_
+
+```json
+{
+  "message": "Task Successfully Updated"
+}
+```
+
+_**Warnings**_
 
 ```json
 {
@@ -365,36 +406,42 @@ header = {
 
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **EDIT** | /api/**task**/**edit**/ | **POST** |
+|  **EDIT** | `http://URI/api/task/edit/` | **POST** |
+
 ---
 
+_**payload**_
+
 ```json
-url = 'http://URI/api/task/edit/';
-
-payload = {
-    "id": "value"
-}
-
-header = {
-    "content-type": "application/json",
-    "Authorization": "YOUR_TOKEN"
+{
+  "id": "value"
 }
 ```
 
-###### Success
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
+}
+```
+
+_**Success**_
+
 ```json
 [
   {
-      "id": 2,
-      "userId": 1,
-      "name": "Task name",
-      "date": "2021-08-16",
-      "realized": 0
+    "id": 2,
+    "userId": 1,
+    "name": "Task name",
+    "date": "2021-08-16",
+    "realized": 0
   }
 ]
 ```
 
-###### Warnings
+_**Warnings**_
 
 ```json
 {
@@ -428,37 +475,43 @@ header = {
 
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
-|  **DELETE** | /api/**task**/**delete**/ | **DELETE** |
+|  **DELETE** | `http://URI/api/task/delete/` | **DELETE** |
+
 ---
 
-```json
-url = 'http://URI/api/task/delete/';
-
-payload = {
-    "id": "id_task"
-}
-
-header = {
-    "content-type": "application/json",
-    "Authorization": "YOUR_TOKEN"
-}
-```
-
-###### Success
-```json
-{
-    "message": "Task deleted Successfuly"
-}
-```
+_**payload**_
 
 ```json
 {
-    "message": "Task not exist"
+  "id": "id_task"
+}
+``` 
+
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
+}
+```
+
+_**Success**_
+
+```json
+{
+  "message": "Task deleted Successfully"
+}
+```
+
+```json
+{
+  "message": "Task not exist"
 }
 ```
 
 ---
-###### Other Warnings
+_**Other Warnings**_
 
 ```json
 {
@@ -498,7 +551,7 @@ header = {
 
 ```json
 {
-  "message": "<Unknow>"
+  "message": "<Unknown>"
 }
 ```
 
@@ -507,11 +560,15 @@ header = {
 <a name="tryonline"></a>
 
 ## Try Online
+
+You can try online this API with full features.
+
 - URI: [http://emsapi.esy.es/todolist](http://emsapi.esy.es/todolist/)
 
 --- 
 
 ## How to cite this content
+
 ```
 DE SOUZA, Edson Melo (2021, August 16). PHP API TO-DO-LIST v.2.0.
 Available in: https://github.com/EdsonMSouza/php-api-to-do-list
@@ -539,5 +596,7 @@ This work is licensed under a
 [![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
 
 [cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
+
 [cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
+
 [cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg

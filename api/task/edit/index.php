@@ -1,7 +1,13 @@
 <?php
+
 namespace Api\Task;
 
 namespace Api\User;
+
+use Api\Task\Task;
+use Api\Task\TaskModel;
+use Exception;
+use PDOException;
 
 require realpath('../../../vendor/autoload.php');
 include '../../../src/Helpers/headers.php';
@@ -30,7 +36,6 @@ try {
                 die();
             }
 
-            # Payload: task id + authorization
             (!isset($data->id) ? array_push($err, 1) : null);
             if (sizeof($err) > 0) {
                 echo json_encode(['message' => 'Payload Precondition Failed']);
@@ -44,29 +49,30 @@ try {
 
         # Load classes
         try {
-            $task = new \Api\Task\Task();
-            $taskModel = new \Api\Task\TaskModel();
+            $task = new Task();
+            $taskModel = new TaskModel();
 
-            $user = new \Api\User\User();
-            $userModel = new \Api\User\UserModel();
+            $user = new User();
+            $userModel = new UserModel();
 
-        } catch (\PDOException $pdo_ex) {
+        } catch (PDOException $pdo_ex) {
             echo json_encode(['message' => $pdo_ex->getMessage()]);
             die();
         }
 
         try {
-            $ret = $userModel->auth($user->setToken($headers['Authorization']));
+            $user->setToken($headers['Authorization']);
+            $ret = $userModel->auth($user);
             if (!$ret[0]) {
                 echo json_encode(['message' => 'Token Refused']);
                 die;
             } else {
-                $task->setId($data->id); # task id
+                $task->setId($data->id);
                 $task->setUserId($ret[1][0]);
                 echo json_encode($taskModel->edit($task));
                 die();
             }
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => $ex->getMessage()]);
             die;
         }
@@ -74,7 +80,7 @@ try {
     } else {
         echo json_encode(['message' => 'Method Not Allowed']);
     }
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     echo json_encode(['message' => $ex->getMessage()]);
     die();
 }

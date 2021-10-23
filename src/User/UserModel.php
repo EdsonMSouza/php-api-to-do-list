@@ -2,19 +2,22 @@
 
 namespace Api\User;
 
+use Api\Database\Database;
 use Exception;
+use PDO;
+use PDOException;
 
 class UserModel
 {
 
-    private static \PDO $pdo;
+    private static PDO $pdo;
 
     /**
      * Model Constructor
      */
     public function __construct()
     {
-        self::$pdo = \Api\Database\Database::connection();
+        self::$pdo = Database::connection();
     }
 
     /**
@@ -23,15 +26,15 @@ class UserModel
 
     public function auth(User $user): array
     {
-        $sql = 'SELECT id FROM users
+        $sql = 'SELECT users.id FROM users
                 WHERE users.token = :token';
 
         $stmt = self::$pdo->prepare($sql);
-        $stmt->bindValue(':token', $user->getToken(), \PDO::PARAM_STR);
+        $stmt->bindValue(':token', $user->getToken());
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
-            return [true, $stmt->fetch(\PDO::FETCH_BOTH)];
+            return [true, $stmt->fetch()];
         } else {
             return [false];
         }
@@ -43,18 +46,13 @@ class UserModel
 
     public function login(User $user)
     {
-        $sql = 'SELECT id FROM users
+        $sql = 'SELECT users.id FROM users
                 WHERE users.username = :username AND users.password = :password';
         $stmt = self::$pdo->prepare($sql);
-        $stmt->bindValue(':username', $user->getUsername(), \PDO::PARAM_STR);
-        $stmt->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
+        $stmt->bindValue(':username', md5($user->getUsername()));
+        $stmt->bindValue(':password', md5($user->getPassword()));
         $stmt->execute();
-
-        if ($stmt->rowCount() == 1) {
-            return $stmt->fetch(\PDO::FETCH_ASSOC)['id'];
-        } else {
-            return false;
-        }
+        return $stmt->rowCount() == 1 ? $stmt->fetch(PDO::FETCH_ASSOC)['id'] : false;
     }
 
     /**
@@ -63,20 +61,17 @@ class UserModel
 
     public function isUser(User $user)
     {
-        $sql = 'SELECT id FROM users
-                WHERE users.username=:username';
+        $sql = 'SELECT users.id FROM users
+                WHERE users.username = :username';
 
         $stmt = self::$pdo->prepare($sql);
-        $stmt->bindValue(':username', $user->getUsername(), \PDO::PARAM_STR);
+        $stmt->bindValue(':username', md5($user->getUsername()));
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
-            # return ( bool ) TRUE;
-            return $stmt->fetch(\PDO::FETCH_ASSOC)['id'];
-            #return $stmt->fetch(\PDO::FETCH_ASSOC);
-
+            return $stmt->fetch(PDO::FETCH_ASSOC)['id'];
         } else {
-            return (int)0;
+            return 0;
         }
     }
 
@@ -90,11 +85,11 @@ class UserModel
                 FROM users WHERE users.id = :id';
 
         $stmt = self::$pdo->prepare($sql);
-        $stmt->bindValue(':id', $user->getId(), \PDO::PARAM_INT);
+        $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
-            return $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
@@ -116,11 +111,11 @@ class UserModel
                     VALUES (:name, :email, :username, :password, :token)';
 
             $stmt = self::$pdo->prepare($sql);
-            $stmt->bindValue(':name', $user->getName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
-            $stmt->bindValue(':username', $user->getUsername(), \PDO::PARAM_STR);
-            $stmt->bindValue(':password', $user->getPassword(), \PDO::PARAM_STR);
-            $stmt->bindValue(':token', $token, \PDO::PARAM_STR);
+            $stmt->bindValue(':name', $user->getName());
+            $stmt->bindValue(':email', $user->getEmail());
+            $stmt->bindValue(':username', md5($user->getUsername()));
+            $stmt->bindValue(':password', md5($user->getPassword()));
+            $stmt->bindValue(':token', $token);
             $stmt->execute();
 
             $userId = (int)self::$pdo->lastInsertId();
@@ -128,7 +123,7 @@ class UserModel
 
             return [true, $userId, $token];
 
-        } catch (\PDOException $ex) {
+        } catch (PDOException $ex) {
             self::$pdo->rollback();
             throw $ex;
         }
@@ -138,47 +133,47 @@ class UserModel
      * Update User data
      */
 
-    public function update(User $user)
+    public function update(User $user): bool
     {
         try {
             self::$pdo->beginTransaction();
 
-            $sql = 'UPDATE users SET users.name=:name, users.email = :email
+            $sql = 'UPDATE users SET users.name = :name, users.email = :email 
                     WHERE users.id = :id AND users.token = :token';
 
             $stmt = self::$pdo->prepare($sql);
-            $stmt->bindValue(':name', $user->getName(), \PDO::PARAM_STR);
-            $stmt->bindValue(':email', $user->getEmail(), \PDO::PARAM_STR);
-            $stmt->bindValue(':id', $user->getId(), \PDO::PARAM_INT);
-            $stmt->bindValue(':token', $user->getToken(), \PDO::PARAM_INT);
+            $stmt->bindValue(':name', $user->getName());
+            $stmt->bindValue(':email', $user->getEmail());
+            $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
+            $stmt->bindValue(':token', $user->getToken(), PDO::PARAM_INT);
             $stmt->execute();
 
             self::$pdo->commit();
 
             return true;
 
-        } catch (\PDOException $ex) {
+        } catch (PDOException $ex) {
             self::$pdo->rollback();
             throw $ex;
         }
     }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     public function delete(User $user): bool
     {
         try {
             self::$pdo->beginTransaction();
-
             $sql = 'DELETE FROM users WHERE users.id = :id ';
-
             $stmt = self::$pdo->prepare($sql);
-            $stmt->bindValue(':id', $user->getId(), \PDO::PARAM_INT);
+            $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
             $stmt->execute();
-
             self::$pdo->commit();
-
             return true;
 
-        } catch (\PDOException $ex) {
+        } catch (PDOException $ex) {
             self::$pdo->rollback();
             return false;
         }

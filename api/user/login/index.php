@@ -2,13 +2,15 @@
 
 namespace Api\User;
 
+use Exception;
+use PDOException;
+
 require realpath('../../../vendor/autoload.php');
 include '../../../src/Helpers/headers.php';
 
 try {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
-            $headers = apache_request_headers();
             $data = json_decode(file_get_contents('php://input'));
             $args = json_decode(file_get_contents('php://input'), true);
 
@@ -29,9 +31,9 @@ try {
 
         # Load classes
         try {
-            $user = new \Api\User\User();
-            $userModel = new \Api\User\UserModel();
-        } catch (\PDOException $pdo_ex) {
+            $user = new User();
+            $userModel = new UserModel();
+        } catch (PDOException $pdo_ex) {
             echo json_encode(['message' => $pdo_ex->getMessage()]);
             die();
         }
@@ -46,7 +48,7 @@ try {
                 die();
             }
 
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => 'Payload Precondition Failed']);
             die;
         }
@@ -54,8 +56,8 @@ try {
         try {
             $user->setUsername(strip_tags($data->username));
             $user->setPassword(strip_tags($data->password));
-
             $userId = $userModel->login($user);
+
             if ($userId > 0) {
                 $user->setId($userId);
                 $search = $userModel->search($user);
@@ -65,14 +67,14 @@ try {
             }
             die();
 
-        } catch (\PDOException $e) {
-            echo json_encode(['message' => SQLMessage($e->getCode())]);
+        } catch (PDOException $e) {
+            echo json_encode(['message' => $e->getCode()]);
         }
 
     } else {
         echo json_encode(['message' => 'Method Not Allowed']);
     }
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     echo json_encode(['message' => $ex->getMessage()]);
     die();
 }

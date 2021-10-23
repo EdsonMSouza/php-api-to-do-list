@@ -2,6 +2,9 @@
 
 namespace Api\User;
 
+use Exception;
+use PDOException;
+
 require realpath('../../../vendor/autoload.php');
 include '../../../src/Helpers/headers.php';
 
@@ -10,7 +13,6 @@ try {
         $err = [];
         $data = null;
         try {
-            $headers = apache_request_headers();
             $data = json_decode(file_get_contents('php://input'));
             $args = json_decode(file_get_contents('php://input'), true);
 
@@ -34,35 +36,33 @@ try {
                 echo json_encode(['message' => 'Payload Precondition Failed']);
                 die();
             }
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => 'Bad Request (Invalid Syntax)']);
         }
 
         try {
             # Load classes
             try {
-                $user = new \Api\User\User();
-                $userModel = new \Api\User\UserModel();
-            } catch (\PDOException $pdo_ex) {
+                $user = new User();
+                $userModel = new UserModel();
+            } catch (PDOException $pdo_ex) {
                 echo json_encode(['message' => $pdo_ex->getMessage()]);
                 die();
             }
 
             # verifying submitted data
             $user->setUsername(strip_tags($data->username));
-
             if ($userModel->isUser($user)) {
                 echo json_encode(['message' => 'User Already Exists']);
                 die();
             }
 
             # create a User
-            $newUser = $userModel->create(
-                $user->setName(strip_tags($data->name)),
-                $user->setEmail(strip_tags($data->email)),
-                $user->setUsername(strip_tags($data->username)),
-                $user->setPassword(strip_tags($data->password))
-            );
+            $user->setName(strip_tags($data->name));
+            $user->setEmail(strip_tags($data->email));
+            $user->setUsername(strip_tags($data->username));
+            $user->setPassword(strip_tags($data->password));
+            $newUser = $userModel->create($user);
 
             if ($newUser[0]) {
                 echo json_encode(
@@ -76,7 +76,7 @@ try {
             }
             die();
 
-        } catch (\PDOException $pdo_ex) {
+        } catch (PDOException | Exception $pdo_ex) {
             echo json_encode(['message' => $pdo_ex->getMessage()]);
             die();
         }
@@ -85,7 +85,7 @@ try {
         echo json_encode(['message' => 'Method Not Allowed']);
         die();
     }
-} catch (\PDOException $pdo_ex) {
+} catch (PDOException $pdo_ex) {
     echo json_encode(['message' => $pdo_ex->getMessage()]);
     die();
 }

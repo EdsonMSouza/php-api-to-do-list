@@ -1,5 +1,9 @@
 <?php
+
 namespace Api\User;
+
+use Exception;
+use PDOException;
 
 require realpath('../../../vendor/autoload.php');
 include '../../../src/Helpers/headers.php';
@@ -8,7 +12,6 @@ try {
     if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
         try {
-            /** @noinspection DuplicatedCode */
             $headers = apache_request_headers();
             $data = json_decode(file_get_contents('php://input'));
             $args = json_decode(file_get_contents('php://input'), true);
@@ -29,23 +32,22 @@ try {
                 die();
             }
 
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => 'Bad Request (Invalid Syntax)']);
             die();
         }
 
         # Loads: User and UserModel
-        $user = new \Api\User\User();
-        $userModel = new \Api\User\UserModel();
+        $user = new User();
+        $userModel = new UserModel();
 
         try {
             if (!$userModel->auth($user->setToken($headers['Authorization']))[0]) {
-            #if (!$userModel->auth($user->setToken($headers['Authorization']))) {
                 echo json_encode(['message' => 'Token Refused']);
                 die;
             }
 
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => $ex->getMessage()]);
             die;
         }
@@ -61,7 +63,7 @@ try {
                 die();
             }
 
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => $ex->getMessage()]);
             die;
 
@@ -70,7 +72,6 @@ try {
         try {
             $user->setUsername(strip_tags($data->username));
             $user->setPassword(strip_tags($data->password));
-            #$userId = $userModel->login($user)['id'];
             $userId = $userModel->login($user);
 
             if ($userId > 0) {
@@ -90,8 +91,8 @@ try {
             }
             die();
 
-        } catch (\PDOException $e) {
-            echo json_encode(['message' => SQLMessage($e->getCode())]);
+        } catch (PDOException $e) {
+            echo json_encode(['message' => $e->getCode()]);
             die();
         }
 
@@ -100,7 +101,7 @@ try {
         die();
     }
 
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     echo json_encode(['message' => $ex->getMessage()]);
     die();
 }

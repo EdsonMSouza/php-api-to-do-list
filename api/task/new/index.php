@@ -4,6 +4,11 @@ namespace Api\Task;
 
 namespace Api\User;
 
+use Api\Task\Task;
+use Api\Task\TaskModel;
+use Exception;
+use PDOException;
+
 require realpath('../../../vendor/autoload.php');
 include '../../../src/Helpers/headers.php';
 
@@ -33,7 +38,6 @@ try {
                 die();
             }
 
-            # verify if fields exist
             (!isset($data->name) ? array_push($err, 1) : null);
             if (sizeof($err) > 0) {
                 echo json_encode(
@@ -49,12 +53,12 @@ try {
 
         # Load classes
         try {
-            $task = new \Api\Task\Task();
-            $taskModel = new \Api\Task\TaskModel();
+            $task = new Task();
+            $taskModel = new TaskModel();
 
-            $user = new \Api\User\User();
-            $userModel = new \Api\User\UserModel();
-        } catch (\PDOException $pdo_ex) {
+            $user = new User();
+            $userModel = new UserModel();
+        } catch (PDOException $pdo_ex) {
             echo json_encode(['message' => $pdo_ex->getMessage()]);
             die();
         }
@@ -67,18 +71,19 @@ try {
             } else {
                 $task->setUserId($ret[1][0]);
                 $task->setName(strip_tags($data->name));
-                $newTask = $taskModel->create($task->setName(strip_tags($data->name)));
+                $task->setName(strip_tags($data->name));
+                $taskModel->create($task);
                 echo json_encode(['message' => 'Task Successfully Added']);
                 die();
             }
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             echo json_encode(['message' => $ex->getMessage()]);
             die;
         }
     } else {
         echo json_encode(['message' => 'Method Not Allowed']);
     }
-} catch (\Exception $ex) {
+} catch (Exception $ex) {
     echo json_encode(['message' => $ex->getMessage()]);
     die();
 }
