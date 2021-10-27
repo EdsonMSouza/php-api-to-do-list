@@ -71,8 +71,7 @@ configured in <code>Database\Database.php</code>
 ### Scripts SQL
 
 ```sql
-CREATE
-DATABASE name;
+CREATE DATABASE name;
 ```
 
 ```sql
@@ -342,7 +341,7 @@ _**header**_
 _**Success**_
 
 ```json
-  [
+[
   {
     "id": 1,
     "userId": 1,
