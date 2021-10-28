@@ -20,10 +20,10 @@ class Database
 
     # PDO config vars
     private static string $db_type = 'mysql';
-    private static string $db_hostname = 'localhost';
-    private static string $db_name = 'u105770438_apiresttask';
-    private static string $db_user = 'u105770438_apiresttask';
-    private static string $db_password = '#*TioPatinhas10#*';
+    private static string $db_hostname = '';
+    private static string $db_name = '';
+    private static string $db_user = '';
+    private static string $db_password = '';
 
     # Constructor
     /**
