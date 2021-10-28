@@ -431,15 +431,13 @@ _**header**_
 _**Success**_
 
 ```json
-[
-  {
-    "id": 2,
-    "userId": 1,
-    "name": "Task name",
-    "date": "2021-08-16",
-    "realized": 0
-  }
-]
+{
+"id": 2,
+"userId": 1,
+"name": "Task name",
+"date": "2021-08-16",
+"realized": 0
+}
 ```
 
 _**Warnings**_
