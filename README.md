@@ -3,14 +3,9 @@
 <code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/php/php.png"></code>
 <code><img height="50" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mysql/mysql.png"></code>
 
-This API aims to present a brief to consume an API resources, mainly for students in the early years of Computer Science
-courses and the like. For this reason, it has few EndPoints (resources) to use, and can be expanded according to the
-need.
+This API aims to present a brief to consume an API resources, mainly for students in the early years of Computer Science courses and the like. For this reason, it has few EndPoints (resources) to use, and can be expanded according to the need.
 
-As it is an instructional project, **it is not recommended** that it be applied in a production environment, as safety
-routines and tests have not been implemented. These resources must be researched and implemented, following the current
-rules, in addition to good practices. Built in **PHP 7** (see below), it allows the beginner to understand the
-mechanisms of access to the resources of an API.
+As it is an instructional project, **it is not recommended** that it be applied in a production environment, as safety routines and tests have not been implemented. These resources must be researched and implemented, following the current rules, in addition to good practices. Built in **PHP 7** (see below), it allows the beginner to understand the mechanisms of access to the resources of an API.
 
 ```html
 PHP 7.4.3 (cli) (built: Jul  5 2021 15:13:35) ( NTS )
@@ -23,8 +18,7 @@ Copyright (c), by Zend Technologies
 
 This content has _free license for use_ (CC BY-SA 4.0).
 
-If you want to collaborate in this repository with any improvements you have made. To do this, just make a Fork and send
-Pull Requests.
+If you want to collaborate in this repository with any improvements you have made. To do this, just make a Fork and send Pull Requests.
 
 ## Composer
 
