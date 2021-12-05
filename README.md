@@ -76,7 +76,8 @@ CREATE TABLE users
     email    VARCHAR(50)    NOT NULL,
     username VARCHAR(32)    NOT NULL,
     password VARCHAR(32)    NOT NULL,
-    token    VARCHAR(20)    NOT NULL
+    token    VARCHAR(20)    NOT NULL,
+    picture  MEDIUMTEXT     DEFAULT NULL,     
 );
 ```
 
@@ -223,7 +224,8 @@ _**payload**_
   "name": "name",
   "email": "email",
   "username": "username",
-  "password": "password"
+  "password": "password",
+  "picture": "picture"
 }
 ``` 
 
