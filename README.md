@@ -584,9 +584,9 @@ Or BibTeX for LaTeX:
 
 ## Acknowledgements
 
-[Arthur Timoteo](https://github.com/arthur-timoteo)
-
-[Wilian silva](https://github.com/Wilian-N-Silva)
+* [Arthur Timoteo](https://github.com/arthur-timoteo)
+  
+* [Wilian silva](https://github.com/Wilian-N-Silva)
 
 ## License
 
