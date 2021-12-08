@@ -10,6 +10,7 @@ class User
     private $username = null;
     private $password = null;
     private $token = null;
+    private $picture = null;
 
     /**
      * Get the value of id
@@ -145,6 +146,29 @@ class User
     public function setToken($token): User
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of picture
+     */
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Set the value of picture
+     *
+     * @param $picture
+     * @return  self
+     */
+
+    public function setPicture($picture): User
+    {
+        $this->picture = $picture;
 
         return $this;
     }

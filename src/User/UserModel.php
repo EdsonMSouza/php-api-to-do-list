@@ -81,7 +81,7 @@ class UserModel
 
     public function search(User $user)
     {
-        $sql = 'SELECT users.id, users.name, users.email, users.token
+        $sql = 'SELECT users.id, users.name, users.email, users.token, users.picture
                 FROM users WHERE users.id = :id';
 
         $stmt = self::$pdo->prepare($sql);
@@ -138,12 +138,13 @@ class UserModel
         try {
             self::$pdo->beginTransaction();
 
-            $sql = 'UPDATE users SET users.name = :name, users.email = :email 
+            $sql = 'UPDATE users SET users.name = :name, users.email = :email, users.picture = :picture
                     WHERE users.id = :id AND users.token = :token';
 
             $stmt = self::$pdo->prepare($sql);
             $stmt->bindValue(':name', $user->getName());
             $stmt->bindValue(':email', $user->getEmail());
+            $stmt->bindValue(':picture', $user->getPicture());
             $stmt->bindValue(':id', $user->getId(), PDO::PARAM_INT);
             $stmt->bindValue(':token', $user->getToken(), PDO::PARAM_INT);
             $stmt->execute();

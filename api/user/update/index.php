@@ -27,8 +27,8 @@ try {
                 die();
             }
 
-            if (sizeof($args) != 4) {
-                echo json_encode(['message' => 'Invalid Arguments Number (Expected Four)']);
+            if (sizeof($args) != 5) {
+                echo json_encode(['message' => 'Invalid Arguments Number (Expected Five)']);
                 die();
             }
 
@@ -78,6 +78,7 @@ try {
                 $user->setId($userId);
                 $user->setName(strip_tags($data->name));
                 $user->setEmail(strip_tags($data->email));
+                $user->setPicture(strip_tags($data->picture));
                 $update = $userModel->update($user);
 
                 if ($update) {

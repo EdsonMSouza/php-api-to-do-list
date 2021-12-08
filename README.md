@@ -76,7 +76,8 @@ CREATE TABLE users
     email    VARCHAR(50)    NOT NULL,
     username VARCHAR(32)    NOT NULL,
     password VARCHAR(32)    NOT NULL,
-    token    VARCHAR(20)    NOT NULL
+    token    VARCHAR(20)    NOT NULL,
+    picture  TEXT           DEFAULT NULL
 );
 ```
 
@@ -190,7 +191,8 @@ _**Success**_
   "id": 1,
   "name": "John Doe",
   "email": "john.doe@domain.com",
-  "token": "YOUR_TOKEN"
+  "token": "YOUR_TOKEN",
+  "picture": "BASE64_STRING"
 }
 ```
 
@@ -223,7 +225,8 @@ _**payload**_
   "name": "name",
   "email": "email",
   "username": "username",
-  "password": "password"
+  "password": "password",
+  "picture": "picture"
 }
 ``` 
 
@@ -248,7 +251,7 @@ _**Warnings**_
 
 ```json
 {
-  "message": "Invalid Arguments Number (Expected Four)"
+  "message": "Invalid Arguments Number (Expected Five)"
 }
 ```
 
