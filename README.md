@@ -582,6 +582,12 @@ Or BibTeX for LaTeX:
 }
 ```
 
+## Acknowledgements
+
+[Arthur Timoteo](https://github.com/arthur-timoteo)
+
+[Wilian silva](https://github.com/Wilian-N-Silva)
+
 ## License
 
 [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
