@@ -563,6 +563,12 @@ You can try online this API with full features.
 
 --- 
 
+## Flutter APP ToDoList
+
+You can get the source [here](https://github.com/Wilian-N-Silva/flutter_to_do_list) by [Wilian Silva](https://github.com/Wilian-N-Silva)
+
+___
+
 ## How to cite this content
 
 ```
@@ -586,7 +592,7 @@ Or BibTeX for LaTeX:
 
 * [Arthur Timoteo](https://github.com/arthur-timoteo)
   
-* [Wilian silva](https://github.com/Wilian-N-Silva)
+* [Wilian Silva](https://github.com/Wilian-N-Silva)
 
 ## License
 
