@@ -27,7 +27,6 @@ Changes should be updated via <code>composer dump-autoload -o</code> on your loc
 ## TODO
 
 * Implement Update `username` and `password`
-* Implement EndPoint ``user/delete``
 
 # Documentation
 
@@ -48,6 +47,7 @@ following shows the API structure for **users** and **tasks** resources.
         ---new
         ---login
         ---update
+        ---delete
 +---src
     \---Database
     \---Helpers
@@ -90,6 +90,16 @@ CREATE TABLE tasks
     date     date           NOT NULL,
     realized INT(1)         NOT NULL
 );
+```
+
+Attention: in order to delete corresponding tasks to user you need to do a ```ALTER TABLE``` adding a ```FOREIGN KEY``` and ```ON DELETE CASCADE``` option.
+
+```sql
+ALTER TABLE tasks
+ADD CONSTRAINT pk_user
+FOREIGN KEY (userId)
+REFERENCES users(id)
+ON DELETE CASCADE;
 ```
 
 ## Token
@@ -264,6 +274,57 @@ _**Warnings**_
 ```json
 {
   "message": "Could Not Update User"
+}
+```
+---
+
+| Resource |      URI      |  Method  |
+|:--------:|:-------------:|:--------:|
+|  **DELETE** | `http://URI/api/user/delete/` | **DELETE** |
+
+_**payload**_
+
+```json
+{
+  "username": "username",
+  "password": "password",
+}
+``` 
+
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
+}
+```
+
+_**Success**_
+
+```json
+{
+  "message": "User Successfully Deleted"
+}
+```
+
+_**Warnings**_
+
+```json
+{
+  "message": "Invalid Arguments Number (Expected Two)"
+}
+```
+
+```json
+{
+  "message": "Incorrect username and/or password"
+}
+```
+
+```json
+{
+  "message": "Could Not Delete User"
 }
 ```
 
