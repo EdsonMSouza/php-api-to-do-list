@@ -24,10 +24,6 @@ If you want to collaborate in this repository with any improvements you have mad
 
 Changes should be updated via <code>composer dump-autoload -o</code> on your local machine.
 
-## TODO
-
-* Implement Update `username` and `password`
-
 # Documentation
 
 This API provides functionality for creating and maintaining users to control a simple To-Do-List application. The
@@ -47,6 +43,7 @@ following shows the API structure for **users** and **tasks** resources.
         ---new
         ---login
         ---update
+        ---updateuserpass
         ---delete
 +---src
     \---Database
@@ -226,8 +223,6 @@ _**Warnings**_
 |:--------:|:-------------:|:--------:|
 |  **UPDATE** | `http://URI/api/user/update/` | **PUT** |
 
-Attention: `username` and `password` can not be changed in this version.
-
 _**payload**_
 
 ```json
@@ -278,6 +273,61 @@ _**Warnings**_
 ```
 ---
 
+---
+
+|           Resource           |                  URI                  |  Method  |
+|:----------------------------:|:-------------------------------------:|:--------:|
+| **UPDATE USERNAME/PASSWORD** | `http://URI/api/user/updateuserpass/` | **PUT** |
+
+_**payload**_
+
+```json
+{
+  "username": "username",
+  "password": "password",
+  "username": "new_username",
+  "password": "new_password"  
+}
+``` 
+
+_**header**_
+
+```json
+{
+  "content-type": "application/json",
+  "Authorization": "YOUR_TOKEN"
+}
+```
+
+_**Success**_
+
+```json
+{
+  "message": "User/password Successfully Updated"
+}
+```
+
+_**Warnings**_
+
+```json
+{
+  "message": "Invalid Arguments Number (Expected Four)"
+}
+```
+
+```json
+{
+  "message": "Incorrect username and/or password"
+}
+```
+
+```json
+{
+  "message": "Could Not Update Username/password"
+}
+```
+
+---
 | Resource |      URI      |  Method  |
 |:--------:|:-------------:|:--------:|
 |  **DELETE** | `http://URI/api/user/delete/` | **DELETE** |
