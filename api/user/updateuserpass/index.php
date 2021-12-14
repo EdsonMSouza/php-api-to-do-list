@@ -27,8 +27,8 @@ try {
                 die();
             }
 
-            if (sizeof($args) != 5) {
-                echo json_encode(['message' => 'Invalid Arguments Number (Expected Five)']);
+            if (sizeof($args) != 4) {
+                echo json_encode(['message' => 'Invalid Arguments Number (Expected Four)']);
                 die();
             }
 
@@ -58,6 +58,9 @@ try {
             (!isset($data->username) ? array_push($err, 1) : null);
             (!isset($data->password) ? array_push($err, 1) : null);
 
+            (!isset($data->new_username) ? array_push($err, 1) : null);
+            (!isset($data->new_password) ? array_push($err, 1) : null);
+
             if (sizeof($err) > 0) {
                 echo json_encode(['message' => 'Payload Precondition Failed']);
                 die();
@@ -76,15 +79,14 @@ try {
 
             if ($userId > 0) {
                 $user->setId($userId);
-                $user->setName(strip_tags($data->name));
-                $user->setEmail(strip_tags($data->email));
-                $user->setPicture(strip_tags($data->picture));
-                $update = $userModel->update($user);
+                $user->setUserName(strip_tags($data->new_username));
+                $user->setPassword(strip_tags($data->new_password));
+                $update = $userModel->updateUserPassword($user);
 
                 if ($update) {
-                    echo json_encode(['message' => 'User Successfully Updated']);
+                    echo json_encode(['message' => 'Username/password Successfully Updated']);
                 } else {
-                    echo json_encode(['message' => 'Could Not Update User']);
+                    echo json_encode(['message' => 'Could Not Update username/password']);
                 }
 
             } else {
