@@ -160,6 +160,35 @@ class UserModel
     }
 
     /**
+     * Update User data (username and password)
+     */
+
+    public function updateUserPassword(User $user): bool
+    {
+        try {
+            self::$pdo->beginTransaction();
+
+            $sql = 'UPDATE users SET users.username = :username, users.password = :password 
+                    WHERE users.id = :id AND users.token = :token';
+
+            $stmt = self::$pdo->prepare($sql);
+            $stmt->bindValue(':username', md5($user->getUsername()));
+            $stmt->bindValue(':password', md5($user->getPassword()));
+            $stmt->bindValue(':id', $user->getId());
+            $stmt->bindValue(':token', $user->getToken());
+            $stmt->execute();
+
+            self::$pdo->commit();
+
+            return true;
+
+        } catch (PDOException $ex) {
+            self::$pdo->rollback();
+            throw $ex;
+        }
+    }
+
+    /**
      * @param User $user
      * @return bool
      */
