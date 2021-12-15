@@ -6,5 +6,5 @@
 This API aims to present a brief to consume an API resources, mainly for students in the early years of Computer Science courses and the like. For this reason, it has few EndPoints (resources) to use, and can be expanded according to the need.
 
 ### Multilanguage README
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/EdsonMSouza/php-api-to-do-list/README.eng.md)
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/EdsonMSouza/php-api-to-do-list/README.pt-br.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/EdsonMSouza/php-api-to-do-list/blob/main/README.eng.md)
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/EdsonMSouza/php-api-to-do-list/blob/main/README.pt-br.md)
