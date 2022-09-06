@@ -663,7 +663,7 @@ _**Other Warnings**_
 ```
 
 ---
-
+<!--
 <a name="tryonline"></a>
 
 ## Teste Online
@@ -673,10 +673,10 @@ A API pode ser testada no endereço abaixo, apresentando todas as funcionalidade
 - URI: [http://emsapi.esy.es/todolist](http://emsapi.esy.es/todolist/)
 
 --- 
-
+-->
 ## Flutter APP ToDoList
 
-As funcionalidades podems er testadas através do APP desenvolvido em Flutter acessando  
+As funcionalidades podem ser testadas através do APP desenvolvido em Flutter acessando  
 [aqui](https://github.com/Wilian-N-Silva/flutter_to_do_list). O APP foi desenvolvido por [Wilian Silva](https://github.com/Wilian-N-Silva).
 
 ### Telas
