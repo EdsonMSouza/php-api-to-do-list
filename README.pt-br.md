@@ -670,7 +670,7 @@ _**Other Warnings**_
 
 A API pode ser testada no endereço abaixo, apresentando todas as funcionalidades.
 
-- URI: [https://emsapi.000webhostapp.com/todolist/](https://emsapi.000webhostapp.com/todolist/)
+- URI: [https://todolist-api.edsonmelo.com.br/](https://todolist-api.edsonmelo.com.br/)
 
 --- 
 

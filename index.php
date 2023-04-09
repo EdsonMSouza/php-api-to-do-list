@@ -532,7 +532,7 @@ FOREIGN <span class="hljs-keyword">KEY</span> (userId)
 <h2 id="try-online">Try Online</h2>
 <p>You can try online this API with full features.</p>
 <ul>
-    <li>URI: <a href="https://emsapi.000webhostapp.com/todolist/api/">https://emsapi.000webhostapp.com/todolist/api/</a></li>
+    <li>URI: <a href="https://todolist-api.edsonmelo.com.br/">https://todolist-api.edsonmelo.com.br/</a></li>
 </ul>
 <hr>
 <h2 id="flutter-app-todolist">Flutter APP ToDoList</h2>
