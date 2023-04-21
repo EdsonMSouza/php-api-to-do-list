@@ -133,7 +133,7 @@ The `domain` variable must be filled with the address where the API will be made
   {"content-type": "application/json"}
   ```
 
-* Success
+* success
 
   ```json
   {
@@ -143,7 +143,7 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Warnings
+* warnings
 
   ```json
   {"message": "Invalid Arguments Number (Expected Four)"}
@@ -171,7 +171,7 @@ The `domain` variable must be filled with the address where the API will be made
   {"content-type": "application/json"}
   ```
 
-* Success
+* success
 
   ```json
   {
@@ -183,7 +183,7 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Warnings
+* warnings
 
   ```json
   {"message": "Invalid Arguments Number (Expected Two)"}
@@ -215,13 +215,13 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Success
+* success
 
   ```json
   {"message": "User Successfully Updated"}
   ```
 
-* Warnings
+* warnings
 
   ```json
   {"message": "Invalid Arguments Number (Expected Five)"}
@@ -253,13 +253,13 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Success
+* success
 
   ```json
   {"message": "User/password Successfully Updated"}
   ```
 
-* Warnings
+* warnings
 
   ```json
   {"message": "Invalid Arguments Number (Expected Four)"}
@@ -289,13 +289,13 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Success
+* success
 
   ```json
   {"message": "User Successfully Deleted"}
   ```
 
-* Warnings
+* warnings
 
   ```json
   {"message": "Invalid Arguments Number (Expected Two)"}
@@ -311,8 +311,6 @@ The `domain` variable must be filled with the address where the API will be made
 * method: **post**
 * payload
 
-* payload
-
   ```json
   {"name": "Task name"}
   ```
@@ -326,13 +324,13 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Success
+* success
 
   ```json
   {"message": "Task Successfully Added"}
   ```
 
-* Warnings
+* warnings
 
   ```json
   {"message": "Invalid Arguments Number (Expected One)"}
@@ -356,7 +354,7 @@ The `domain` variable must be filled with the address where the API will be made
   }
   ```
 
-* Success
+* success
 
   ```json
   [
@@ -368,6 +366,12 @@ The `domain` variable must be filled with the address where the API will be made
       "realized": 0
     }
   ]
+  ```
+
+* Warnings
+
+  ```json
+  {"message": "Task(s) not found"}
   ```
 
 ## **UPDATE**
