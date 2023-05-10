@@ -84,7 +84,7 @@ try {
                 $update = $userModel->updateUserPassword($user);
 
                 if ($update) {
-                    echo json_encode(['message' => 'Username/password Successfully Updated']);
+                    echo json_encode(['message' => 'User/password Successfully Updated']);
                 } else {
                     echo json_encode(['message' => 'Could Not Update username/password']);
                 }
