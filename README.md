@@ -148,9 +148,9 @@ The `domain` variable must be filled with the address where the API will be made
   ```json
   {"message": "Invalid Arguments Number (Expected Four)"}
   {"message": "Could Not Add User"}
+  {"message": "Missing data in one or more fields"}
   {"message": "User Already Exists"}
   ```
-
 
 ## **LOGIN**
 

@@ -36,6 +36,13 @@ try {
                 echo json_encode(['message' => 'Payload Precondition Failed']);
                 die();
             }
+
+            # check if any field is missing data
+            if(empty($data->name) or empty($data->email) or empty($data->user) or empty($data->password)){
+                echo json_encode(['message' => 'Missing data in one or more fields']);
+                die();
+            }
+
         } catch (Exception $ex) {
             echo json_encode(['message' => 'Bad Request (Invalid Syntax)']);
         }
