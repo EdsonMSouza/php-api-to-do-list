@@ -38,7 +38,7 @@ try {
             }
 
             # check if any field is missing data
-            if(empty($data->name) or empty($data->email) or empty($data->user) or empty($data->password)){
+            if(empty($data->name) or empty($data->email) or empty($data->username) or empty($data->password)){
                 echo json_encode(['message' => 'Missing data in one or more fields']);
                 die();
             }
